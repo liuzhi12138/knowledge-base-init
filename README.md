@@ -9,31 +9,31 @@
 扫描源码 → 提取业务规则 → 生成结构化文档 → 内置五层质量验证。
 产出的知识库可被 Qoder、Codex、Cursor 等 AI Agent 直接消费，建立对陌生代码库的深度上下文理解。
 
-### 低侵入性设计
+---
 
-知识库不占用项目的 `AGENTS.md` 和 `docs/` 目录。对项目的影响仅限一行：
+## 为什么需要它？
+
+AI 编码助手在处理复杂业务代码时，最常犯的错误是：**编造不存在的类、忽略隐含的业务约束、遗漏关键的事务边界**。
+
+根本原因是缺少项目级的上下文文档。本技能通过自动化扫描 + 五层质疑机制，一次性生成全套结构化知识库，让 AI 在每次处理业务代码前都能"读完全书再下笔"。
+
+## 低侵入性设计
+
+知识库**不占用**项目的 `AGENTS.md` 和 `docs/` 目录。对项目的影响仅限一行：
 
 ```markdown
 ## 知识库
-修改代码前，必须先阅读 `AGENTS_KB_{项目名}.md`。
+处理任何涉及业务代码的任务前，必须先阅读 `AGENTS_KB_{项目名}.md`。
 ```
 
 不需要时，删掉这一行 + 删除 `AGENTS_KB_*.md` 和 `docs_kb_*/` 即可完全移除。
 
 | | 其他方案 | 本技能 |
 |---|---------|--------|
-| 入口文件 | 直接覆盖 AGENTS.md | 独立 `AGENTS_KB_{项目名}.md`，AGENTS.md 仅加一行引用 |
-| 文档目录 | 占用 docs/ai-context/ | 独立 `docs_kb_{项目名}/`，不与其他文档冲突 |
-| 停用成本 | 需删多个文件，清理路由表 | 删一行引用 + 两个目录，改动极小 |
-| 多知识库共存 | 不可能 | 可以，每个知识库独立入口、独立目录 |
-
----
-
-## 为什么需要它？
-
-AI 编码助手在修改复杂业务代码时，最常犯的错误是：**编造不存在的类、忽略隐含的业务约束、遗漏关键的事务边界**。
-
-根本原因是缺少项目级的上下文文档。本技能通过自动化扫描 + 五层质疑机制，一次性生成全套结构化知识库，让 AI 在每次编码前都能"读完全书再下笔"。
+| **入口文件** | 直接覆盖 AGENTS.md | 独立 `AGENTS_KB_{项目名}.md`，AGENTS.md 仅加一行引用 |
+| **文档目录** | 占用 `docs/ai-context/` | 独立 `docs_kb_{项目名}/`，不与其他文档冲突 |
+| **停用成本** | 需删多个文件，清理路由表 | 删一行引用 + 两个目录，改动极小 |
+| **多知识库共存** | 不可能 | 可以，每个知识库独立入口、独立目录 |
 
 ## 核心能力
 
@@ -49,12 +49,12 @@ AI 编码助手在修改复杂业务代码时，最常犯的错误是：**编造
 ### 五层质疑体系
 
 | 层级 | 名称 | 触发时机 | 做什么 |
-|------|------|---------|--------|
-| **Q1** | 扫描完整性自证 | 每层文件扫描后 | 用 `find` 统计文件总数，与已读清单比对，确保 100% 覆盖 |
-| **Q2** | 阅读理解自证 | 每个文件提取后 | 列出所有 public 方法签名及用途，主动报告不理解的代码 |
-| **Q3** | 业务规则溯源 | 每条规则写入前 | 给出源码行号，搜索是否有违反该规则的代码 |
-| **Q4** | 遗漏审计 | 模块文档生成后 | 检查 DAO/测试/事件/消息是否全部记录在案 |
-| **Q5** | 置信度标注 | 模块文档生成后 | 对每条事实标注 `[确认]` `[推断]` `[猜测]`，提交用户复核 |
+|:----:|------|---------|--------|
+| Q1 | 扫描完整性自证 | 每层文件扫描后 | 用 `find` 统计文件总数，与已读清单比对，确保 100% 覆盖 |
+| Q2 | 阅读理解自证 | 每个文件提取后 | 列出所有 public 方法签名及用途，主动报告不理解的代码 |
+| Q3 | 业务规则溯源 | 每条规则写入前 | 给出源码行号，搜索是否有违反该规则的代码 |
+| Q4 | 遗漏审计 | 模块文档生成后 | 检查 DAO / 测试 / 事件 / 消息是否全部记录在案 |
+| Q5 | 置信度标注 | 模块文档生成后 | 对每条事实标注 `[确认]` `[推断]` `[猜测]`，提交用户复核 |
 
 ## Quick Start
 
@@ -90,31 +90,31 @@ Phase 5  收尾校验    → 更新索引、生成维护协议、输出覆盖率
 ### 预期产出
 
 ```
-AGENTS.md                              # 项目原有入口（仅追加一行知识库引用）
-AGENTS_KB_{项目名}.md                 # 知识库入口文件（AI 生成，请勿手动编辑）
+AGENTS.md                               # 项目原有入口（仅追加一行知识库引用）
+AGENTS_KB_{项目名}.md                   # 知识库入口文件（AI 生成，请勿手动编辑）
 docs_kb_{项目名}/
-├── 00-index.md                          # 导航索引 + 任务路由表
-├── GLOSSARY.md                          # 项目术语表
-├── 01-project-overview/README.md        # 项目定位与能力概览
-├── 02-architecture/README.md            # 技术栈与模块依赖拓扑
-├── 03-domain-model/README.md            # 聚合根、实体、值对象
-├── 04-business-rules/                   # 业务规则（按模块拆分）
-│   ├── _TEMPLATE.md                     # 业务规则文档统一模板
-│   ├── {module}-rules.md                # 模块业务规则（含禁止事项 + 入口速查）
+├── 00-index.md                         # 导航索引 + 任务路由表
+├── GLOSSARY.md                         # 项目术语表
+├── 01-project-overview/README.md       # 项目定位与能力概览
+├── 02-architecture/README.md           # 技术栈与模块依赖拓扑
+├── 03-domain-model/README.md           # 聚合根、实体、值对象
+├── 04-business-rules/                  # 业务规则（按模块拆分）
+│   ├── _TEMPLATE.md                    # 业务规则文档统一模板
+│   ├── {module}-rules.md               # 模块业务规则（含禁止事项 + 入口速查）
 │   └── {module}/
-│       ├── source-facts.md              # 源码事实（方法签名 + 事务类型）
-│       ├── legacy-and-side-paths.md     # 历史旁路与已知例外
-│       └── governance-gaps.md           # 代码治理缺口
-├── 05-status-flow/README.md             # 状态流转与枚举
-├── 06-database/README.md                # 数据库表速查
-├── 07-api/README.md                     # 接口约定
-├── 08-code-style/service-layer-guide.md # 编码分层规范
-├── 09-testing/README.md                 # 测试规范
-├── 11-review-checklists/                # AI 代码审查清单
-│   ├── ai-generated-code-checklist.md   # AI 生成代码通用检查清单
-│   └── {module}-change-checklist.md     # 各模块变更专项清单
+│       ├── source-facts.md             # 源码事实（方法签名 + 事务类型）
+│       ├── legacy-and-side-paths.md    # 历史旁路与已知例外
+│       └── governance-gaps.md          # 代码治理缺口
+├── 05-status-flow/README.md            # 状态流转与枚举
+├── 06-database/README.md               # 数据库表速查
+├── 07-api/README.md                    # 接口约定
+├── 08-code-style/service-layer-guide.md# 编码分层规范
+├── 09-testing/README.md                # 测试规范
+├── 11-review-checklists/               # AI 代码审查清单
+│   ├── ai-generated-code-checklist.md  # AI 生成代码通用检查清单
+│   └── {module}-change-checklist.md    # 各模块变更专项清单
 └── 99-other/
-    └── knowledge-base-protocol.md       # 知识库维护协议
+    └── knowledge-base-protocol.md      # 知识库维护协议
 ```
 
 ### 断点续传
@@ -132,31 +132,30 @@ AI 会读取 `.knowledge-base-init/manifest.json` 自动恢复到上次进度。
 本技能是一个 **AI Agent Skill**，不是独立运行的程序。需要配合以下 AI 编码工具使用：
 
 | Agent | 兼容性 | 说明 |
-|-------|--------|------|
+|-------|:------:|------|
 | **Qoder** | 完全兼容 | 原生支持 Skill 体系 |
 | **OpenAI Codex** | 完全兼容 | 放入 `~/.codex/skills/` 目录即可 |
 | **Cursor** | 可用 | 将 SKILL.md 内容作为 Rules 或 Prompt 使用 |
-| **其他支持自定义 Prompt 的 Agent** | 可用 | 将 SKILL.md 内容注入系统提示词 |
+| **其他 Agent** | 可用 | 将 SKILL.md 内容注入系统提示词 |
 
 支持的编程语言：Java、Go、TypeScript/Node.js、Python、Rust，以及其他有标准目录结构的语言。
 
-## 目录结构
+## 项目结构
 
 ```
 knowledge-base-init/
-├── SKILL.md                              # 技能定义文件（指令、工作流、质疑体系）
+├── SKILL.md                            # 技能定义（指令、工作流、质疑体系）
+├── LICENSE                             # MIT 协议
 └── assets/
-    ├── examples.md                       # 好/坏知识条目对比样例
-    └── templates/                        # 产出文档模板
-        ├── agents-kb-template.md           # → AGENTS_KB_{项目名}.md：知识库入口文件
-        ├── index-template.md             # → 00-index.md：知识库导航索引
-        ├── business-rules-template.md    # → {module}-rules.md：业务规则文档
-        ├── source-facts-template.md      # → source-facts.md：源码事实记录
-        ├── governance-gaps-template.md   # → governance-gaps.md：治理缺口报告
-        └── legacy-and-side-paths-template.md  # → legacy-and-side-paths.md：历史旁路
+    ├── examples.md                     # 好 / 坏知识条目对比样例
+    └── templates/                      # 产出文档模板
+        ├── agents-kb-template.md       # → AGENTS_KB_{项目名}.md
+        ├── index-template.md           # → 00-index.md
+        ├── business-rules-template.md  # → {module}-rules.md
+        ├── source-facts-template.md    # → source-facts.md
+        ├── governance-gaps-template.md # → governance-gaps.md
+        └── legacy-and-side-paths-template.md  # → legacy-and-side-paths.md
 ```
-
-每个模板定义了**结构、必填字段和质量标准**。AI 在生成知识库时严格参照模板格式，确保产出的一致性和可消费性。
 
 ## FAQ
 
@@ -177,11 +176,11 @@ A: 默认中文，可在 Phase 0 用户确认阶段切换为英文。
 
 ## 已知限制
 
-- **不支持二进制/编译产物分析**：只扫描源码文本，不解析编译产物
-- **框架特异性**：模板以通用后端项目为主，纯前端项目的组件/状态管理扫描深度有限
-- **跨服务追踪有限**：只记录出站调用，不追踪下游服务的实现细节
-- **测试覆盖率不做运行时验证**：只静态扫描测试文件，不执行测试
-- **大型 Monorepo**：需按子项目逐个执行，不支持一次性全量扫描
+- **不支持二进制 / 编译产物分析** — 只扫描源码文本，不解析编译产物
+- **框架特异性** — 模板以通用后端项目为主，纯前端项目的组件 / 状态管理扫描深度有限
+- **跨服务追踪有限** — 只记录出站调用，不追踪下游服务的实现细节
+- **测试覆盖率不做运行时验证** — 只静态扫描测试文件，不执行测试
+- **大型 Monorepo** — 需按子项目逐个执行，不支持一次性全量扫描
 
 ## License
 

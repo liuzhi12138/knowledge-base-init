@@ -166,7 +166,7 @@ Task Progress:
 
 ```markdown
 ## 知识库
-修改代码前，必须先阅读 `AGENTS_KB_{项目名}.md`。
+处理任何涉及业务代码的任务前，必须先阅读 `AGENTS_KB_{项目名}.md`。
 ```
 
 - 已有 AGENTS.md：在末尾追加上述引用，不修改任何现有内容
