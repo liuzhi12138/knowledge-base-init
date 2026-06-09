@@ -8,7 +8,7 @@
 ## 一、知识库结构
 
 ```
-docs/ai-context/
+docs_kb_{项目名}/
 ├── 00-index.md                          # 本文件（导航）
 ├── GLOSSARY.md                          # 项目术语表
 ├── 01-project-overview/                 # 项目概览
@@ -45,11 +45,11 @@ docs/ai-context/
 
 | 任务类型 | 阅读顺序 |
 |---------|---------|
-| **修改 {模块A} 逻辑** | AGENTS.md → `{module-a}-rules.md` → `{module-a}/` → `{module-a}-change-checklist.md` |
-| **修改 {模块B} 逻辑** | AGENTS.md → `{module-b}-rules.md` → `{module-b}/` → `{module-b}-change-checklist.md` |
-| **新增 Controller / Service** | AGENTS.md → `08-code-style/service-layer-guide.md` → 通用清单 |
+| **修改 {模块A} 逻辑** | AGENTS_KB_{项目名}.md → `{module-a}-rules.md` → `{module-a}/` → `{module-a}-change-checklist.md` |
+| **修改 {模块B} 逻辑** | AGENTS_KB_{项目名}.md → `{module-b}-rules.md` → `{module-b}/` → `{module-b}-change-checklist.md` |
+| **新增 Controller / Service** | AGENTS_KB_{项目名}.md → `08-code-style/service-layer-guide.md` → 通用清单 |
 | **查术语/概念** | `GLOSSARY.md` 术语表 |
-| **了解项目全貌** | AGENTS.md → `01-project-overview/README.md` → `02-architecture/README.md` |
+| **了解项目全貌** | AGENTS_KB_{项目名}.md → `01-project-overview/README.md` → `02-architecture/README.md` |
 | **查数据库表** | `06-database/README.md` |
 | **写测试** | `09-testing/README.md` |
 | **维护知识库** | `99-other/knowledge-base-protocol.md` |

@@ -14,6 +14,7 @@ description: Generate a complete AI Coding knowledge base for any project. Scans
 3. **主动质疑**：每个关键节点自动执行质疑步骤（Q1-Q5）
 4. **人工兜底**：业务规则必须经用户确认，AI 只提候选项
 5. **断点续传**：通过 manifest.json 跟踪进度，支持跨 session 恢复
+6. **低侵入性**：知识库不占用项目的 AGENTS.md 和 docs/ 目录，独立入口、独立存储、一行引用即可拆卸
 
 ## 异常场景处理
 
@@ -25,8 +26,9 @@ description: Generate a complete AI Coding knowledge base for any project. Scans
 | **无源码目录** | 找不到 src/、app/、lib/ 等常见源码目录 | 列出找到的所有目录，请用户指定源码位置 |
 | **纯前端项目** | 只有 HTML/CSS/JS，无后端逻辑 | 正常执行，但跳过 Phase 3 的 Service/Repository 层扫描，聚焦组件/路由/状态管理 |
 | **Monorepo 多包** | 根目录含 packages/、apps/ 等子项目目录 | 请用户选择要生成知识库的子项目，每个子项目独立执行 |
-| **已有知识库** | 检测到 docs/ai-context/ 或 AGENTS.md 已存在 | 展示已有内容摘要，询问用户：覆盖重来 / 增量追加 / 取消 |
-| **已有 AGENTS.md** | 根目录存在 AGENTS.md | 不覆盖，在已有内容中追加文档路由表 |
+| **已有知识库** | 检测到 `AGENTS_KB_{项目名}.md` 或 `docs_kb_{项目名}/` 已存在 | 展示已有内容摘要，询问用户：覆盖重来 / 增量追加 / 取消 |
+| **已有 AGENTS.md** | 根目录存在 AGENTS.md | 不覆盖，仅在末尾追加一行知识库引用（`## 知识库` + 入口路径） |
+| **无 AGENTS.md** | 根目录不存在 AGENTS.md | 创建最小化入口文件，仅含一行知识库引用 + 一行项目说明，不填充其他内容 |
 
 ## 执行流程
 
@@ -110,7 +112,7 @@ Task Progress:
     "phase-2": {
       "status": "in-progress",
       "docs": {
-        "01-project-overview": { "status": "complete", "output": "docs/ai-context/01-project-overview/README.md" },
+        "01-project-overview": { "status": "complete", "output": "docs_kb_project-name/01-project-overview/README.md" },
         "06-database": { "status": "pending" }
       }
     },
@@ -147,20 +149,33 @@ Task Progress:
 
 ### Phase 1: 骨架生成（全自动）
 
-**目标**：生成知识库目录结构和导航文件。
+**目标**：生成知识库目录结构、导航文件和规则模板。
 
 ```
 Task Progress:
-- [ ] 创建 docs/ai-context/ 目录结构
+- [ ] 创建 docs_kb_{项目名}/ 目录结构
 - [ ] 生成 00-index.md（导航索引）— 参照 assets/templates/index-template.md
-- [ ] 生成 AGENTS.md（AI 入口文件）— 参照 assets/templates/agents-template.md
+- [ ] 生成 AGENTS_KB_{项目名}.md（知识库入口文件）— 参照 assets/templates/agents-kb-template.md
+- [ ] 处理 AGENTS.md（已有则追加引用，无则创建最小化入口）
 - [ ] 生成 _TEMPLATE.md（业务规则模板）— 参照 assets/templates/business-rules-template.md
 ```
+
+**AGENTS.md 处理规则**：
+
+知识库不占用 AGENTS.md。仅在 AGENTS.md 中追加一行引用，作为 AI Agent 发现知识库的桥梁：
+
+```markdown
+## 知识库
+修改代码前，必须先阅读 `AGENTS_KB_{项目名}.md`。
+```
+
+- 已有 AGENTS.md：在末尾追加上述引用，不修改任何现有内容
+- 无 AGENTS.md：创建最小化文件，仅含标题 + 知识库引用，不填充其他内容
 
 按需生成目录（根据项目特征决定是否需要）：
 
 | 目录 | 生成条件 |
-|------|---------|
+|------|--------|
 | `01-project-overview/` | 始终生成 |
 | `02-architecture/` | 始终生成 |
 | `03-domain-model/` | 有明确领域模型时 |
@@ -279,7 +294,8 @@ Task Progress:
 ```
 Task Progress:
 - [ ] 更新 00-index.md（任务路由表）
-- [ ] 更新 AGENTS.md（文档路由表）
+- [ ] 更新 AGENTS_KB_{项目名}.md（文档路由表）
+- [ ] 更新 AGENTS.md 中的知识库引用（确保指向正确）
 - [ ] 生成 knowledge-base-protocol.md（维护协议）
 - [ ] 生成最终覆盖率报告
 - [ ] 清理 .knowledge-base-init/（保留 manifest 备查）

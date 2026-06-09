@@ -1,6 +1,7 @@
-# {项目名} — AI Coding 工程化入口
+# {项目名} — AI Coding 知识库入口
 
-> 本文件为 AI 编码工具在本项目中工作时的总入口。
+> 本文件为 {项目名} 的 **AI 编程知识库入口**。
+> 由 knowledge-base-init 自动生成，项目团队不应手动编辑本文件。
 > 所有 AI 在生成、修改代码前 **必须先阅读本文件**，再按"文档路由"进入对应规则。
 
 ---
@@ -23,13 +24,13 @@
 
 | 任务类型 | 必读文档 |
 |---------|---------|
-| {模块A} 相关代码 | `docs/ai-context/04-business-rules/{module-a}-rules.md` |
-| {模块B} 相关代码 | `docs/ai-context/04-business-rules/{module-b}-rules.md` |
-| 新增/修改 Service | `docs/ai-context/08-code-style/service-layer-guide.md` |
-| 查术语/概念 | `docs/ai-context/GLOSSARY.md` |
-| 了解项目全貌 | `docs/ai-context/01-project-overview/README.md` |
-| 查数据库表 | `docs/ai-context/06-database/README.md` |
-| 提交前自检 | `docs/ai-context/11-review-checklists/ai-generated-code-checklist.md` |
+| {模块A} 相关代码 | `docs_kb_{项目名}/04-business-rules/{module-a}-rules.md` |
+| {模块B} 相关代码 | `docs_kb_{项目名}/04-business-rules/{module-b}-rules.md` |
+| 新增/修改 Service | `docs_kb_{项目名}/08-code-style/service-layer-guide.md` |
+| 查术语/概念 | `docs_kb_{项目名}/GLOSSARY.md` |
+| 了解项目全貌 | `docs_kb_{项目名}/01-project-overview/README.md` |
+| 查数据库表 | `docs_kb_{项目名}/06-database/README.md` |
+| 提交前自检 | `docs_kb_{项目名}/11-review-checklists/ai-generated-code-checklist.md` |
 
 ## 四、全局禁止事项（任何模块都不可违反）
 
