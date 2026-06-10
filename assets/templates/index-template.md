@@ -34,6 +34,8 @@ docs_kb_{项目名}/
 │   └── service-layer-guide.md
 ├── 09-testing/                          # 测试规范
 │   └── README.md
+├── 10-prompt-templates/                 # AI 提示词模板（按需生成）
+│   └── README.md
 ├── 11-review-checklists/                # 代码审查清单
 │   ├── ai-generated-code-checklist.md
 │   └── {module}-change-checklist.md

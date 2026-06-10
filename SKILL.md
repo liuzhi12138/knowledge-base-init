@@ -185,6 +185,7 @@ Task Progress:
 | `07-api/` | 有 API 端点时 |
 | `08-code-style/` | 始终生成 |
 | `09-testing/` | 有测试文件时 |
+| `10-prompt-templates/` | 项目有可复用的 AI 提示词模板时 |
 | `11-review-checklists/` | 始终生成 |
 
 模板参考: [assets/templates/](assets/templates/)
@@ -249,7 +250,7 @@ Task Progress:
 | 深度 | 产出 | 适用场景 |
 |------|------|----------|
 | **完整深度** | 四件套全生成（rules + source-facts + legacy + governance），Q1-Q5 全执行 | 核心业务模块 |
-| **骨架级** | 只生成 rules.md 的 TL;DR + 核心入口速查 + 禁止事项，只执行 Q1（扫描完整性），跳过 Q2-Q5 | 辅助/简单模块 |
+| **骨架级** | 只生成 rules.md 的 TL;DR + 核心入口速查 + 禁止事项，**可选生成精简版 source-facts**（仅列 public 方法签名，无详细描述），只执行 Q1（扫描完整性），跳过 Q2-Q5 | 辅助/简单模块 |
 
 **关键规则**：
 - 每扫描完一个子层（如 Service 层），立即将发现追加写入 source-facts.md
@@ -267,13 +268,15 @@ Task Progress:
 
 ### Phase 4: 规范与清单（模板化 + 适配）
 
-**目标**：生成编码规范、测试规范、审查清单、术语表。
+**目标**：生成编码规范、测试规范、审查清单、术语表、维护协议。
 
 ```
 Task Progress:
-- [ ] 生成 08-code-style/service-layer-guide.md
+- [ ] 生成 08-code-style/（支持多文件输出）
 - [ ] 生成 11-review-checklists/（通用 + 每模块）
 - [ ] 生成 GLOSSARY.md
+- [ ] 生成 knowledge-base-protocol.md（维护协议）— 参照 assets/templates/knowledge-base-protocol-template.md
+- [ ] 生成 10-prompt-templates/（如有）
 - [ ] 展示摘要，用户审核
 ```
 
@@ -282,8 +285,12 @@ Task Progress:
 | 文档 | 扫描什么 | 输出什么 |
 |------|---------|----------|
 | service-layer-guide | 现有 Service 代码的分层模式、命名惯例、事务使用 | 分层规范 + 命名规范 + 事务规范 |
+| utils-reference（如有） | 工具类的使用方式、入参约定、常见误用 | 工具类速查表 |
+| cross-cutting-reference（如有） | 横切关注点（租户、权限、日志、异常）的实现方式 | 横切逻辑速查 + 禁止事项 |
 | review-checklists | 各模块的禁止事项 + 常见陷阱（从 Phase 3 提取） | 通用清单 + 每模块专项清单 |
 | GLOSSARY | 各模块术语 + 业务关键词路由（从 Phase 2-3 提取） | 术语表 + 关键词路由表 + 已知拼写不一致 |
+| knowledge-base-protocol | 知识库维护需求、分支策略、更新频率 | 增量触发规则 + 分支安全约束 + 显式唤起词 |
+| prompt-templates（如有） | 项目中已沉淀的 AI 提示词模板 | 按场景分组的提示词模板清单 |
 
 ---
 
@@ -296,7 +303,6 @@ Task Progress:
 - [ ] 更新 00-index.md（任务路由表）
 - [ ] 更新 AGENTS_KB_{项目名}.md（文档路由表）
 - [ ] 更新 AGENTS.md 中的知识库引用（确保指向正确）
-- [ ] 生成 knowledge-base-protocol.md（维护协议）
 - [ ] 生成最终覆盖率报告
 - [ ] 清理 .knowledge-base-init/（保留 manifest 备查）
 ```

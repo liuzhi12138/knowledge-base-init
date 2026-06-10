@@ -110,6 +110,7 @@ docs_kb_{项目名}/
 ├── 07-api/README.md                    # 接口约定
 ├── 08-code-style/service-layer-guide.md# 编码分层规范
 ├── 09-testing/README.md                # 测试规范
+├── 10-prompt-templates/README.md       # AI 提示词模板（按需生成）
 ├── 11-review-checklists/               # AI 代码审查清单
 │   ├── ai-generated-code-checklist.md  # AI 生成代码通用检查清单
 │   └── {module}-change-checklist.md    # 各模块变更专项清单
@@ -154,6 +155,7 @@ knowledge-base-init/
         ├── business-rules-template.md  # → {module}-rules.md
         ├── source-facts-template.md    # → source-facts.md
         ├── governance-gaps-template.md # → governance-gaps.md
+        ├── knowledge-base-protocol-template.md  # → knowledge-base-protocol.md
         └── legacy-and-side-paths-template.md  # → legacy-and-side-paths.md
 ```
 
