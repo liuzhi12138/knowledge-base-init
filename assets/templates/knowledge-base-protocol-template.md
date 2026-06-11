@@ -13,11 +13,11 @@
 
 | 类型 | 默认落点 |
 |------|--------|
-| 已确认业务规则 | `docs_kb_{项目名}/04-business-rules/{模块}-rules.md` |
-| 源码事实 | `docs_kb_{项目名}/04-business-rules/{模块}/source-facts.md` |
-| 历史旁路 | `docs_kb_{项目名}/04-business-rules/{模块}/legacy-and-side-paths.md` |
-| 治理缺口 | `docs_kb_{项目名}/04-business-rules/{模块}/governance-gaps.md` |
-| 术语与同义词 | `docs_kb_{项目名}/GLOSSARY.md` |
+| 已确认业务规则 | `docs_kb_{项目名}/context/04-business-rules/{模块}-rules.md` |
+| 源码事实 | `docs_kb_{项目名}/context/04-business-rules/{模块}/source-facts.md` |
+| 历史旁路 | `docs_kb_{项目名}/context/04-business-rules/{模块}/legacy-and-side-paths.md` |
+| 治理缺口 | `docs_kb_{项目名}/context/04-business-rules/{模块}/governance-gaps.md` |
+| 术语与同义词 | `docs_kb_{项目名}/context/GLOSSARY.md` |
 
 `AGENTS_KB_{项目名}.md`、`00-index.md`、Checklist 和模板属于控制面文件，候选修改需单独列出。
 

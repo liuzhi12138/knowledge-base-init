@@ -95,7 +95,7 @@ Task Progress:
 
 **Step 6 - 初始化 manifest.json**
 
-在项目根目录创建 `.knowledge-base-init/manifest.json`。完整 schema：
+在知识库目录下创建 `docs_kb_{项目名}/.knowledge-base-init/manifest.json`。完整 schema：
 
 ```json
 {
@@ -112,7 +112,7 @@ Task Progress:
     "phase-2": {
       "status": "in-progress",
       "docs": {
-        "01-project-overview": { "status": "complete", "output": "docs_kb_project-name/01-project-overview/README.md" },
+        "01-project-overview": { "status": "complete", "output": "docs_kb_project-name/context/01-project-overview/README.md" },
         "06-database": { "status": "pending" }
       }
     },
@@ -153,11 +153,11 @@ Task Progress:
 
 ```
 Task Progress:
-- [ ] 创建 docs_kb_{项目名}/ 目录结构
-- [ ] 生成 00-index.md（导航索引）— 参照 assets/templates/index-template.md
-- [ ] 生成 AGENTS_KB_{项目名}.md（知识库入口文件）— 参照 assets/templates/agents-kb-template.md
+- [ ] 创建 docs_kb_{项目名}/ 和 docs_kb_{项目名}/context/ 目录结构
+- [ ] 在 context/ 下生成 00-index.md（导航索引）— 参照 assets/templates/index-template.md
+- [ ] 在项目根目录生成 AGENTS_KB_{项目名}.md（知识库入口文件）— 参照 assets/templates/agents-kb-template.md
 - [ ] 处理 AGENTS.md（已有则追加引用，无则创建最小化入口）
-- [ ] 生成 _TEMPLATE.md（业务规则模板）— 参照 assets/templates/business-rules-template.md
+- [ ] 在 context/04-business-rules/ 下生成 _TEMPLATE.md（业务规则模板）— 参照 assets/templates/business-rules-template.md
 ```
 
 **AGENTS.md 处理规则**：
@@ -172,14 +172,14 @@ Task Progress:
 - 已有 AGENTS.md：在末尾追加上述引用，不修改任何现有内容
 - 无 AGENTS.md：创建最小化文件，仅含标题 + 知识库引用，不填充其他内容
 
-按需生成目录（根据项目特征决定是否需要）：
+按需生成目录（根据项目特征决定是否需要），以下目录均创建在 `docs_kb_{项目名}/context/` 下：
 
 | 目录 | 生成条件 |
 |------|--------|
 | `01-project-overview/` | 始终生成 |
 | `02-architecture/` | 始终生成 |
 | `03-domain-model/` | 有明确领域模型时 |
-| `04-business-rules/` | 始终生成 |
+| `04-business-rules/` | 始终生成（含 `_TEMPLATE.md`） |
 | `05-status-flow/` | 有状态机/枚举时 |
 | `06-database/` | 有数据库时 |
 | `07-api/` | 有 API 端点时 |
@@ -304,14 +304,14 @@ Task Progress:
 - [ ] 更新 AGENTS_KB_{项目名}.md（文档路由表）
 - [ ] 更新 AGENTS.md 中的知识库引用（确保指向正确）
 - [ ] 生成最终覆盖率报告
-- [ ] 清理 .knowledge-base-init/（保留 manifest 备查）
+- [ ] 清理 docs_kb_{项目名}/.knowledge-base-init/（保留 manifest 备查）
 ```
 
 ---
 
 ## 五层质疑体系
 
-在每个关键节点**自动执行**，不需要用户触发。所有质疑回答写入 `.knowledge-base-init/challenge-log.md`。
+在每个关键节点**自动执行**，不需要用户触发。所有质疑回答写入 `docs_kb_{项目名}/.knowledge-base-init/challenge-log.md`。
 
 ### Q1: 扫描完整性自证
 
@@ -457,7 +457,7 @@ Task Progress:
 
 如果用户在新 session 中说"继续生成知识库"：
 
-1. 读取 `.knowledge-base-init/manifest.json`
+1. 读取 `docs_kb_{项目名}/.knowledge-base-init/manifest.json`（位于知识库容器目录下，与 context/ 并列）
 2. 找到第一个 status 不是 "complete" 的 phase
 3. 从该 phase 的第一个 pending 子任务开始继续
 4. 展示恢复摘要："上次完成到 Phase N 的 XXX，现在从 YYY 继续"

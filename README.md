@@ -26,7 +26,7 @@ AI 编码助手在处理复杂业务代码时，最常犯的错误是：**编造
 处理任何涉及业务代码的任务前，必须先阅读 `AGENTS_KB_{项目名}.md`。
 ```
 
-不需要时，删掉这一行 + 删除 `AGENTS_KB_*.md` 和 `docs_kb_*/` 即可完全移除。
+不需要时，删掉这一行 + 删除 `AGENTS_KB_*.md` 和 `docs_kb_{项目名}/`（含元数据和数据文件）即可完全移除。
 
 | | 其他方案 | 本技能 |
 |---|---------|--------|
@@ -80,7 +80,7 @@ AI 将自动进入六阶段工作流：
 
 ```
 Phase 0  项目画像    → 识别技术栈、分层模式、模块边界，请你确认
-Phase 1  骨架生成    → 创建 docs_kb_{项目名}/ 目录、知识库入口文件和规则模板
+Phase 1  骨架生成    → 创建 docs_kb_{项目名}/ 容器和 context/ 数据目录、知识库入口文件和规则模板
 Phase 2  基础设施文档 → 生成项目概览、架构、数据库、API 等文档
 Phase 3  业务规则挖掘 → 逐模块生成四件套（rules + source-facts + legacy + governance）
 Phase 4  规范与清单   → 生成编码规范、审查清单、术语表
@@ -92,30 +92,33 @@ Phase 5  收尾校验    → 更新索引、生成维护协议、输出覆盖率
 ```
 AGENTS.md                               # 项目原有入口（仅追加一行知识库引用）
 AGENTS_KB_{项目名}.md                   # 知识库入口文件（AI 生成，请勿手动编辑）
-docs_kb_{项目名}/
-├── 00-index.md                         # 导航索引 + 任务路由表
-├── GLOSSARY.md                         # 项目术语表
-├── 01-project-overview/README.md       # 项目定位与能力概览
-├── 02-architecture/README.md           # 技术栈与模块依赖拓扑
-├── 03-domain-model/README.md           # 聚合根、实体、值对象
-├── 04-business-rules/                  # 业务规则（按模块拆分）
-│   ├── _TEMPLATE.md                    # 业务规则文档统一模板
-│   ├── {module}-rules.md               # 模块业务规则（含禁止事项 + 入口速查）
-│   └── {module}/
-│       ├── source-facts.md             # 源码事实（方法签名 + 事务类型）
-│       ├── legacy-and-side-paths.md    # 历史旁路与已知例外
-│       └── governance-gaps.md          # 代码治理缺口
-├── 05-status-flow/README.md            # 状态流转与枚举
-├── 06-database/README.md               # 数据库表速查
-├── 07-api/README.md                    # 接口约定
-├── 08-code-style/service-layer-guide.md# 编码分层规范
-├── 09-testing/README.md                # 测试规范
-├── 10-prompt-templates/README.md       # AI 提示词模板（按需生成）
-├── 11-review-checklists/               # AI 代码审查清单
-│   ├── ai-generated-code-checklist.md  # AI 生成代码通用检查清单
-│   └── {module}-change-checklist.md    # 各模块变更专项清单
-└── 99-other/
-    └── knowledge-base-protocol.md      # 知识库维护协议
+docs_kb_{项目名}/                      # 知识库容器
+├── .knowledge-base-init/               # Skill 元数据（进度追踪，提交到 git）
+│   └── manifest.json
+└── context/                            # 知识库数据文件
+    ├── 00-index.md                     # 导航索引 + 任务路由表
+    ├── GLOSSARY.md                     # 项目术语表
+    ├── 01-project-overview/README.md   # 项目定位与能力概览
+    ├── 02-architecture/README.md       # 技术栈与模块依赖拓扑
+    ├── 03-domain-model/README.md       # 聚合根、实体、值对象
+    ├── 04-business-rules/              # 业务规则（按模块拆分）
+    │   ├── _TEMPLATE.md                # 业务规则文档统一模板
+    │   ├── {module}-rules.md           # 模块业务规则（含禁止事项 + 入口速查）
+    │   └── {module}/
+    │       ├── source-facts.md         # 源码事实（方法签名 + 事务类型）
+    │       ├── legacy-and-side-paths.md# 历史旁路与已知例外
+    │       └── governance-gaps.md      # 代码治理缺口
+    ├── 05-status-flow/README.md        # 状态流转与枚举
+    ├── 06-database/README.md           # 数据库表速查
+    ├── 07-api/README.md                # 接口约定
+    ├── 08-code-style/service-layer-guide.md # 编码分层规范
+    ├── 09-testing/README.md            # 测试规范
+    ├── 10-prompt-templates/README.md   # AI 提示词模板（按需生成）
+    ├── 11-review-checklists/           # AI 代码审查清单
+    │   ├── ai-generated-code-checklist.md # AI 生成代码通用检查清单
+    │   └── {module}-change-checklist.md   # 各模块变更专项清单
+    └── 99-other/
+        └── knowledge-base-protocol.md  # 知识库维护协议
 ```
 
 ### 断点续传
@@ -126,7 +129,7 @@ docs_kb_{项目名}/
 继续生成知识库
 ```
 
-AI 会读取 `.knowledge-base-init/manifest.json` 自动恢复到上次进度。
+AI 会读取 `docs_kb_{项目名}/.knowledge-base-init/manifest.json` 自动恢复到上次进度。
 
 ## 前置依赖
 

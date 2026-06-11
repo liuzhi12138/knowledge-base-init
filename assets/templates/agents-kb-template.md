@@ -24,13 +24,13 @@
 
 | 任务类型 | 必读文档 |
 |---------|---------|
-| {模块A} 相关代码 | `docs_kb_{项目名}/04-business-rules/{module-a}-rules.md` |
-| {模块B} 相关代码 | `docs_kb_{项目名}/04-business-rules/{module-b}-rules.md` |
-| 新增/修改 Service | `docs_kb_{项目名}/08-code-style/service-layer-guide.md` |
-| 查术语/概念 | `docs_kb_{项目名}/GLOSSARY.md` |
-| 了解项目全貌 | `docs_kb_{项目名}/01-project-overview/README.md` |
-| 查数据库表 | `docs_kb_{项目名}/06-database/README.md` |
-| 提交前自检 | `docs_kb_{项目名}/11-review-checklists/ai-generated-code-checklist.md` |
+| {模块A} 相关代码 | `docs_kb_{项目名}/context/04-business-rules/{module-a}-rules.md` |
+| {模块B} 相关代码 | `docs_kb_{项目名}/context/04-business-rules/{module-b}-rules.md` |
+| 新增/修改 Service | `docs_kb_{项目名}/context/08-code-style/service-layer-guide.md` |
+| 查术语/概念 | `docs_kb_{项目名}/context/GLOSSARY.md` |
+| 了解项目全貌 | `docs_kb_{项目名}/context/01-project-overview/README.md` |
+| 查数据库表 | `docs_kb_{项目名}/context/06-database/README.md` |
+| 提交前自检 | `docs_kb_{项目名}/context/11-review-checklists/ai-generated-code-checklist.md` |
 
 ## 四、全局禁止事项（任何模块都不可违反）
 

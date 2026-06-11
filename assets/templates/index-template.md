@@ -9,38 +9,41 @@
 
 ```
 docs_kb_{项目名}/
-├── 00-index.md                          # 本文件（导航）
-├── GLOSSARY.md                          # 项目术语表
-├── 01-project-overview/                 # 项目概览
-│   └── README.md
-├── 02-architecture/                     # 架构与依赖
-│   └── README.md
-├── 03-domain-model/                     # 领域模型
-│   └── README.md
-├── 04-business-rules/                   # 业务规则（按模块拆分）
-│   ├── _TEMPLATE.md                     # 业务规则文档统一模板
-│   └── {module}-rules.md               # 各模块业务规则
-│       └── {module}/                    # 各模块深度文档
-│           ├── source-facts.md
-│           ├── legacy-and-side-paths.md
-│           └── governance-gaps.md
-├── 05-status-flow/                      # 状态流转与枚举
-│   └── README.md
-├── 06-database/                         # 数据库表速查
-│   └── README.md
-├── 07-api/                              # 接口约定
-│   └── README.md
-├── 08-code-style/                       # 编码规范
-│   └── service-layer-guide.md
-├── 09-testing/                          # 测试规范
-│   └── README.md
-├── 10-prompt-templates/                 # AI 提示词模板（按需生成）
-│   └── README.md
-├── 11-review-checklists/                # 代码审查清单
-│   ├── ai-generated-code-checklist.md
-│   └── {module}-change-checklist.md
-└── 99-other/
-    └── knowledge-base-protocol.md       # 知识库维护协议
+├── .knowledge-base-init/                # Skill 元数据（隐藏目录）
+│   └── manifest.json
+└── context/                             # 知识库数据文件
+    ├── 00-index.md                      # 本文件（导航）
+    ├── GLOSSARY.md                      # 项目术语表
+    ├── 01-project-overview/             # 项目概览
+    │   └── README.md
+    ├── 02-architecture/                 # 架构与依赖
+    │   └── README.md
+    ├── 03-domain-model/                 # 领域模型
+    │   └── README.md
+    ├── 04-business-rules/               # 业务规则（按模块拆分）
+    │   ├── _TEMPLATE.md                 # 业务规则文档统一模板
+    │   └── {module}-rules.md            # 各模块业务规则
+    │       └── {module}/                # 各模块深度文档
+    │           ├── source-facts.md
+    │           ├── legacy-and-side-paths.md
+    │           └── governance-gaps.md
+    ├── 05-status-flow/                  # 状态流转与枚举
+    │   └── README.md
+    ├── 06-database/                     # 数据库表速查
+    │   └── README.md
+    ├── 07-api/                          # 接口约定
+    │   └── README.md
+    ├── 08-code-style/                   # 编码规范
+    │   └── service-layer-guide.md
+    ├── 09-testing/                      # 测试规范
+    │   └── README.md
+    ├── 10-prompt-templates/             # AI 提示词模板（按需生成）
+    │   └── README.md
+    ├── 11-review-checklists/            # 代码审查清单
+    │   ├── ai-generated-code-checklist.md
+    │   └── {module}-change-checklist.md
+    └── 99-other/
+        └── knowledge-base-protocol.md   # 知识库维护协议
 ```
 
 ## 二、任务路由
